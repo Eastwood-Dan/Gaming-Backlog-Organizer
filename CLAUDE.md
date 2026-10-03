@@ -12,3 +12,17 @@ Because nothing exists yet, there are no build/lint/test commands to document. W
 
 - `.claude/skills/<name>/SKILL.md` — each directory is one skill; some include supporting docs, scripts, and `agents/openai.yaml` (an OpenAI-agent variant of the same skill). Edit the `SKILL.md`, not the generated-looking `openai.yaml`, unless changing agent metadata.
 - Skills relevant to project setup: `setup-matt-pocock-skills` (configures issue tracker, triage labels, and domain-doc layout), `setup-pre-commit` (Husky + lint-staged), `git-guardrails-claude-code` (blocks destructive git commands via hooks), `domain-modeling` (GLOSSARY.md / ADRs).
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in GitHub Issues (`gh` CLI). See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default vocabulary: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: one `GLOSSARY.md` and `docs/adr/` at the repo root. See `docs/agents/domain.md`.
