@@ -17,9 +17,11 @@ Because nothing exists yet, there are no build/lint/test commands to document. W
 - **Domain model**: one Game per Library entry, with zero or more Copies (platform + store) and one Status. Backlog, Current and Played are the three views of the Library by Status. Terms are defined in `GLOSSARY.md`.
 - **Language**: code, identifiers, and `GLOSSARY.md` in English; the UI starts in German, with strings kept out of the code so it can be translated later.
 
+- **Features and MVP**: the agreed feature set is in `docs/features.md`; the MVP cut (manual entry only, Supabase sync, read-only offline, Current limit, title search and platform filter) is in `docs/mvp-scope.md`.
+
 ### Still open
 
-Features (what the app must do), where games come from (manual entry, a games database like IGDB or RAWG, or store imports), and the MVP scope. These are decided in a separate session.
+Nothing is open at the scope level. Implementation details (data schema, screens, project scaffolding) are decided when building.
 
 ## Repository layout
 
