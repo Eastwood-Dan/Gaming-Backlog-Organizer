@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project status
 
-Gaming-Backlog-Organizer is an app to organize a gaming backlog (see `README.md`). The repository currently contains **no application code, build system, linter, or tests** — only the README and a vendored set of Claude Code skills in `.claude/skills/` (from mattpocock/skills, see `.claude/skills/LICENSE-mattpocock-skills`).
+Gaming Organizer (repo directory still `Gaming-Backlog-Organizer`) is an app to organize what the owner plays next, plays now, and has played (see `README.md`). The repository currently contains **no application code, build system, linter, or tests** — only the README and a vendored set of Claude Code skills in `.claude/skills/` (from mattpocock/skills, see `.claude/skills/LICENSE-mattpocock-skills`).
 
 Because nothing exists yet, there are no build/lint/test commands to document. When scaffolding is added, update this file with those commands (including how to run a single test) and the architecture.
 
@@ -14,7 +14,7 @@ Because nothing exists yet, there are no build/lint/test commands to document. W
 - **Platform**: a PWA, used on an iPad (installed to the home screen) and a Windows PC. The owner has no Mac, so native iOS is out. See `docs/adr/0001-pwa-instead-of-native-ios.md`.
 - **Stack**: TypeScript, React, Vite with a PWA plugin.
 - **Backend**: Supabase (free tier, with login) for sync between devices. See `docs/adr/0002-supabase-for-cross-device-sync.md`.
-- **Domain model**: one Game per Backlog entry, with one or more Copies (platform + store). Terms are defined in `GLOSSARY.md`.
+- **Domain model**: one Game per Library entry, with one or more Copies (platform + store) and one Status. Backlog, Current and Played are the three views of the Library by Status. Terms are defined in `GLOSSARY.md`.
 - **Language**: code, identifiers, and `GLOSSARY.md` in English; the UI starts in German, with strings kept out of the code so it can be translated later.
 
 ### Still open
