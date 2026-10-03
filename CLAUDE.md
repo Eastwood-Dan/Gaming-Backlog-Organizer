@@ -14,7 +14,7 @@ Because nothing exists yet, there are no build/lint/test commands to document. W
 - **Platform**: a PWA, used on an iPad (installed to the home screen) and a Windows PC. The owner has no Mac, so native iOS is out. See `docs/adr/0001-pwa-instead-of-native-ios.md`.
 - **Stack**: TypeScript, React, Vite with a PWA plugin.
 - **Backend**: Supabase (free tier, with login) for sync between devices. See `docs/adr/0002-supabase-for-cross-device-sync.md`.
-- **Domain model**: one Game per Library entry, with one or more Copies (platform + store) and one Status. Backlog, Current and Played are the three views of the Library by Status. Terms are defined in `GLOSSARY.md`.
+- **Domain model**: one Game per Library entry, with zero or more Copies (platform + store) and one Status. Backlog, Current and Played are the three views of the Library by Status. Terms are defined in `GLOSSARY.md`.
 - **Language**: code, identifiers, and `GLOSSARY.md` in English; the UI starts in German, with strings kept out of the code so it can be translated later.
 
 ### Still open
