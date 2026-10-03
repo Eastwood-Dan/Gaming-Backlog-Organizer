@@ -27,10 +27,6 @@ _Avoid_: Library, queue
 The Games the owner is playing right now: Status `Playing`. A subset of the Library.
 _Avoid_: Active, in progress
 
-**Playtime estimate**:
-The single expected time to play a Game, computed from three times taken from HowLongToBeat (Main Story, Main + Extras, Completionist) as a weighted average, with Main + Extras counting four times and the other two once each.
-_Avoid_: Duration, length
-
 **Current limit**:
 The maximum number of Games the owner allows in Current at once, set by the owner. The app refuses to move another Game into Current while Current is full.
 _Avoid_: Cap, quota
