@@ -5,6 +5,8 @@ import { VitePWA } from "vite-plugin-pwa";
 
 // https://vite.dev/config/
 export default defineConfig({
+  // GitHub Pages serves the app from /<repo-name>/; the deploy workflow sets BASE_PATH.
+  base: process.env.BASE_PATH ?? "/",
   plugins: [
     react(),
     VitePWA({
@@ -14,7 +16,6 @@ export default defineConfig({
         name: "Gaming Organizer",
         short_name: "Gaming Organizer",
         lang: "de",
-        start_url: "/",
         display: "standalone",
         theme_color: "#4f46e5",
         background_color: "#ffffff",
