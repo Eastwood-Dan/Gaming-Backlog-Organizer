@@ -4,9 +4,33 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project status
 
-Gaming Organizer (repo directory still `Gaming-Backlog-Organizer`) is an app to organize what the owner plays next, plays now, and has played (see `README.md`). The repository currently contains **no application code, build system, linter, or tests** — only the README and a vendored set of Claude Code skills in `.claude/skills/` (from mattpocock/skills, see `.claude/skills/LICENSE-mattpocock-skills`).
+Gaming Organizer (repo directory still `Gaming-Backlog-Organizer`) is an app to organize what the owner plays next, plays now, and has played (see `README.md`). The repository contains the project scaffolding (Vite + React + TypeScript PWA with a placeholder start page), tooling, and a vendored set of Claude Code skills in `.claude/skills/` (from mattpocock/skills, see `.claude/skills/LICENSE-mattpocock-skills`). There is no Supabase integration and no domain code yet.
 
-Because nothing exists yet, there are no build/lint/test commands to document. When scaffolding is added, update this file with those commands (including how to run a single test) and the architecture.
+## Commands
+
+Package manager: npm. Node 22.
+
+- `npm run dev` — Vite dev server (http://localhost:5173)
+- `npm run build` — typecheck (`tsc -b`) and production build into `dist/` (includes the service worker and manifest)
+- `npm run preview` — serve the production build (http://localhost:4173); use this to check the PWA manifest and installability
+- `npm run lint` — ESLint
+- `npm run typecheck` — `tsc -b`
+- `npm test` — Vitest, single run
+- `npm run test:watch` — Vitest in watch mode
+- Single test file: `npx vitest run src/App.test.tsx`; single test by name: `npx vitest run -t "shows the app title"`
+- `npm run format` / `npm run format:check` — Prettier
+- `npm run icons` — regenerates the placeholder PWA icons in `public/`
+
+Husky runs a pre-commit hook: lint-staged (Prettier on staged files), then `npm run typecheck` and `npm test`.
+
+## Architecture
+
+- `index.html` → `src/main.tsx` mounts `src/App.tsx`.
+- `vite.config.ts` configures React, `vite-plugin-pwa` (web app manifest, `generateSW` service worker with auto update, app shell precached) and Vitest (jsdom, `src/test-setup.ts` loads jest-dom matchers).
+- UI strings live in `src/i18n/de.ts` (German, the only locale) and are read through `t(key)` from `src/i18n/index.ts`. Never hard-code UI text in components; add a key instead. Tests should reference `de[...]` rather than literal strings.
+- Tests sit next to the code as `*.test.tsx` and use React Testing Library.
+- Lint config is `eslint.config.js` (typescript-eslint, react-hooks, react-refresh, Prettier last); formatting is `.prettierrc`. The existing `README.md` is excluded from Prettier.
+- PWA icons in `public/` are solid-colour placeholders; replace them with real artwork later.
 
 ### Decided so far
 
@@ -21,7 +45,7 @@ Because nothing exists yet, there are no build/lint/test commands to document. W
 
 ### Still open
 
-Nothing is open at the scope level. Implementation details (data schema, screens, project scaffolding) are decided when building.
+Nothing is open at the scope level. Implementation details (data schema, screens) are decided when building.
 
 ## Repository layout
 
