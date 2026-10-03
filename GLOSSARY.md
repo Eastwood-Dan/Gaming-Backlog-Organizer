@@ -5,7 +5,7 @@ A personal app for organizing everything the owner plays, will play, or has play
 ## Language
 
 **Library**:
-All Games the owner tracks in the app, whatever their Status.
+All Games the owner tracks in the app, whatever their Status. A Game enters the Library only when the owner deliberately adds it; the owner's store libraries are never imported automatically.
 _Avoid_: Collection, wishlist
 
 **Game**:
@@ -26,6 +26,10 @@ _Avoid_: Library, queue
 **Current**:
 The Games the owner is playing right now: Status `Playing`. A subset of the Library.
 _Avoid_: Active, in progress
+
+**Current limit**:
+The maximum number of Games the owner allows in Current at once, set by the owner. The app refuses to move another Game into Current while Current is full.
+_Avoid_: Cap, quota
 
 **Played**:
 The Games the owner is done with, either finished or dropped for good: Status `Finished` or `Dropped`. A subset of the Library; these Games are out of the Backlog.
