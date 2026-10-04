@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project status
 
-Gaming Organizer (repo directory still `Gaming-Backlog-Organizer`) is an app to organize what the owner plays next, plays now, and has played (see `README.md`). The repository contains the project scaffolding (Vite + React + TypeScript PWA with a placeholder start page), tooling, and a vendored set of Claude Code skills in `.claude/skills/` (from mattpocock/skills, see `.claude/skills/LICENSE-mattpocock-skills`). There is no Supabase integration and no domain code yet.
+Gaming Organizer (repo directory still `Gaming-Backlog-Organizer`) is an app to organize what the owner plays next, plays now, and has played (see `README.md`). The repository contains a Vite + React + TypeScript PWA with a working game list (MVP step 2: Backlog, Current and Played views, stored locally in the browser), tooling, and a vendored set of Claude Code skills in `.claude/skills/` (from mattpocock/skills, see `.claude/skills/LICENSE-mattpocock-skills`). There is no Supabase integration yet; Copies, search/filter and own rating are not built.
 
 ## Commands
 
@@ -26,9 +26,12 @@ Husky runs a pre-commit hook: lint-staged (Prettier on staged files), then `npm 
 ## Architecture
 
 - `index.html` → `src/main.tsx` mounts `src/App.tsx`.
+- `src/library/library.ts` is the domain logic: pure functions on an immutable `Library` (`games` array plus `currentLimit`), no React, no storage, no clock (callers pass `now`). The order of `games` is the manual Backlog order. `setStatus` sets start/end dates and enforces the Current limit (returns `{ ok: false, reason: "currentFull" }`); a Game returning to the Backlog goes on top. Views are `backlog()`, `current()`, `played()`. Dates are ISO strings.
+- `src/library/storage.ts` defines the async `LibraryStore` interface (`load`/`save`) and the localStorage implementation (one JSON value under `gaming-organizer.library`). The Supabase step replaces this implementation; `App` takes an optional `store` prop.
+- `src/App.tsx` holds the Library in state and saves it through the store after every change; `src/components/` has the UI pieces (`GameCard`, `AddGames`, `CurrentLimit`, `ConfirmDialog`). All three views are always rendered; CSS (`src/index.css`, breakpoint 900px) shows them as columns on wide screens and as tabs on narrow ones. Light/dark follows the system via CSS variables.
 - `vite.config.ts` configures React, `vite-plugin-pwa` (web app manifest, `generateSW` service worker with auto update, app shell precached) and Vitest (jsdom, `src/test-setup.ts` loads jest-dom matchers).
-- UI strings live in `src/i18n/de.ts` (German, the only locale) and are read through `t(key)` from `src/i18n/index.ts`. Never hard-code UI text in components; add a key instead. Tests should reference `de[...]` rather than literal strings.
-- Tests sit next to the code as `*.test.tsx` and use React Testing Library.
+- UI strings live in `src/i18n/de.ts` (German, the only locale) and are read through `t(key)` from `src/i18n/index.ts`. Never hard-code UI text in components; add a key instead. `t(key, { name: value })` fills `{name}` placeholders. Tests should reference `de[...]` rather than literal strings.
+- Tests sit next to the code (`*.test.ts` for logic, `*.test.tsx` for UI with React Testing Library). `src/test-setup.ts` loads jest-dom and unmounts rendered components after each test. The logic is tested test-first through its public functions in `library.test.ts`.
 - Lint config is `eslint.config.js` (typescript-eslint, react-hooks, react-refresh, Prettier last); formatting is `.prettierrc`. The existing `README.md` is excluded from Prettier.
 - PWA icons in `public/` are solid-colour placeholders; replace them with real artwork later.
 - Deployment: every push to `main` runs `.github/workflows/deploy.yml` (lint, typecheck, test, build) and publishes to GitHub Pages at https://eastwood-dan.github.io/Gaming-Backlog-Organizer/. Pages serves under `/<repo-name>/`, so the workflow sets `BASE_PATH` and `vite.config.ts` uses it as `base`; locally it defaults to `/`. The repo is public. Session logs live in `docs/session-logs/`.
@@ -46,7 +49,7 @@ Husky runs a pre-commit hook: lint-staged (Prettier on staged files), then `npm 
 
 ### Still open
 
-Nothing is open at the scope level. Implementation details (data schema, screens) are decided when building.
+Nothing is open at the scope level. Next MVP steps: Copies (platform + store), search and platform filter, Supabase sync with login, read-only offline cache. Decided while building the game list: moving a Game back to the Backlog puts it on top; `Finished`/`Dropped` can go back to `Playing` or `Unplayed`; lowering the Current limit below the number of Playing Games keeps them but refuses new ones.
 
 ## Repository layout
 
