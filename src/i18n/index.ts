@@ -6,6 +6,12 @@ export type MessageKey = keyof typeof de;
 // switch here; callers only ever use t().
 const messages: Record<MessageKey, string> = de;
 
-export function t(key: MessageKey): string {
-  return messages[key];
+/** Looks up a UI string; `{name}` placeholders are filled from `params`. */
+export function t(
+  key: MessageKey,
+  params: Record<string, string | number> = {}
+): string {
+  return messages[key].replace(/\{(\w+)\}/g, (match, name: string) =>
+    name in params ? String(params[name]) : match
+  );
 }
