@@ -22,7 +22,7 @@ Date: 2026-10-03/04. Result: scaffolding is complete and in `main`; the app is l
 
 ## Open
 
-- `CLAUDE.md` does not yet mention the Pages deployment and `BASE_PATH`.
+- (Done in this PR) `CLAUDE.md` now documents the Pages deployment and `BASE_PATH`.
 - PWA icons are solid-colour placeholders.
 - Offline behaviour and installability were only checked via the home-screen start, not in airplane mode.
 

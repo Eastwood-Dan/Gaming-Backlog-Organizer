@@ -31,6 +31,7 @@ Husky runs a pre-commit hook: lint-staged (Prettier on staged files), then `npm 
 - Tests sit next to the code as `*.test.tsx` and use React Testing Library.
 - Lint config is `eslint.config.js` (typescript-eslint, react-hooks, react-refresh, Prettier last); formatting is `.prettierrc`. The existing `README.md` is excluded from Prettier.
 - PWA icons in `public/` are solid-colour placeholders; replace them with real artwork later.
+- Deployment: every push to `main` runs `.github/workflows/deploy.yml` (lint, typecheck, test, build) and publishes to GitHub Pages at https://eastwood-dan.github.io/Gaming-Backlog-Organizer/. Pages serves under `/<repo-name>/`, so the workflow sets `BASE_PATH` and `vite.config.ts` uses it as `base`; locally it defaults to `/`. The repo is public. Session logs live in `docs/session-logs/`.
 
 ### Decided so far
 
